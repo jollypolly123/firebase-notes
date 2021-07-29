@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Your Notes Are On Fire</title>
+
+    <link rel="icon" href="https://cdn.glitch.com/53a7a634-945e-4d08-a68d-eed09de32a3e%2F2857c915-3201-442d-98a5-fd1d7b77e708.image.png?v=1627431950215">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="css/cards.css" />
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@0.2.3/dist/bubbly-bg.js"></script>
+    <script>bubbly({
+    colorStart: "#4c004c",
+    colorStop: "#1a001a",
+    bubbleFunc: () => `hsla(0, 100%, 50%, ${Math.random() * 0.25})`}); </script> 
+    
+    <nav class="navbar" role="navigation" aria-label="main navigation" >
+      <div class="navbar-menu" >
+        <a class="navbar-item" href="writeNote.html" >
+          <p style="color:White;">Add a new note</p>
+        </a>
+        <a class="navbar-item" href="archivedNotes.html">
+          <p style="color:White;">Archived notes</p>
+        </a>
+        <a class="navbar-item" href="communityNotes.html">
+          <p style="color:White;">Community</p>
+        </a>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="section">
+        <div class="columns">
+          <div class="column has-text-centered">
+            <h1 class="title"><p style="color:white;">Notes</p></h1>
+          </div>
+        </div>
+        <div class="field has-addons">
+          <div class="control is-expanded autocomplete">
+            <input class="input" width="100%" type="text" id="findLabel" placeholder="Filter by Label" autocomplete="on">
+          </div>
+          <div class="control">
+            <button class="button is-info" onclick="filterByLabel()">
+              Search
+            </button>
+          </div>
+        </div>
+        <br />
+        <div id="app" class="columns is-multiline">
+          <!-- Note cards will render here -->
+        </div>
+        <div id="editNoteModal" class="modal">
+          <div class="modal-background"></div>
+          <div class="modal-card">
+            <section class="modal-card-body">
+	            <input id="editNoteId" type="hidden">
+              <p class="is-subtitle">Title</p>
+              <input class="input is-normal" id="editTitleInput" type="text">
+              <p class="is-subtitle">Text</p>
+              <input class="input is-normal" id="editTextInput" type="text">
+            </section>
+            <footer class="modal-card-foot">
+              <button class="button is-success" onclick="saveEditedNote()">
+                Save changes
+              </button>
+              <button class="button" onclick="closeEditModal()">Cancel</button>
+            </footer>
+          </div>
+        </div>
+        <div id="deleteNoteModal" class="modal">
+          <div class="modal-background"></div>
+          <div class="modal-card">
+            <section class="modal-card-body">
+	            <input id="deleteNoteId" type="hidden">
+              <h2 class="is-subtitle">Are you sure you want to delete this note? This cannot be undone.</h2>
+            </section>
+            <footer class="modal-card-foot">
+              <button class="button is-danger" onclick="yesDeleteNote()">
+                Delete
+              </button>
+              <button class="button" onclick="noDeleteNote()">Cancel</button>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+ 
+     <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <p>
+            <strong>Bulma</strong> by
+            <a href="http://jgthms.com">Jeremy Thomas</a>. The source code is
+            licensed
+            <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+            <br />
+          </p>
+        </div>
+      </div>
+    </footer> 
+    </div>
+    
+
+    <!-- Includes firebase core and all secondary SDKs. No need for other firebase CDN scripts. -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase.js"></script>
+
+    <!--   Authenticates firebase client with your firebase instance -->
+    <script src="js/firebase.js"></script>
+
+    <!--  INCLUDE ALL APPLICATION SCRIPTS HERE-->
+    <script src="js/viewNotes.js"></script>
+    <script>
+      
+      var searchableLabels = [];
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          const notesRef = firebase.database().ref(`users/${user.uid}`);
+          notesRef.on("value", snapshot => {
+            const data = snapshot.val();
+            for (var message in data) {
+              for (const label in data[message].labels) {
+                if (data[message].labels[label]) searchableLabels.push(data[message].labels[label]);
+              }
+            }
+            console.log(searchableLabels);
+          });
+
+          autocomplete(document.getElementById("findLabel"), searchableLabels);
+        } 
+      });
+    </script>
+  </body>
+</html>

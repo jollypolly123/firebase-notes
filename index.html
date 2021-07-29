@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fire Notes</title>
+
+    <link rel="icon" href="https://cdn.glitch.com/53a7a634-945e-4d08-a68d-eed09de32a3e%2F2857c915-3201-442d-98a5-fd1d7b77e708.image.png?v=1627431950215">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"
+    />
+    <style type="text/css">
+      html,
+      body {
+        font-family: "Open Sans";
+      }
+
+      img {
+        padding: 5px;
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <!--bubbles background-->
+    <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@0.2.3/dist/bubbly-bg.js"></script>
+    <script>bubbly({
+    colorStart: "#111",
+    colorStop: "#422",
+    bubbleFunc: () => `hsla(0, 100%, 50%, ${Math.random() * 0.25})`}); </script>
+    
+    
+    <section class="hero is-fullheight is-default is-bold">
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <div class="columns is-vcentered">
+            <div class="column is-6 is-offset-3">
+              <h1 class="title is-2">
+            <!--    Welcome to 🔥Fire Notes📝! -->
+                <p style="color:white;">Notes📝</p>
+              </h1>
+              <h2 class="subtitle is-5">
+                <p style="color:white;">Log in to view your notes or create a new one.</p>
+              </h2>
+              <form action="javascript:void(0);">
+                            <div class="field">
+                            <div class="control">
+                                <input class="input is-medium is-rounded" type="text" id="username" placeholder="Enter your username" required />
+                            </div>
+                            </div>
+                            <div class="field">
+                            <div class="control">
+                                <input class="input is-medium is-rounded" type="text" id="passcode" placeholder="Enter your password" required />
+                            </div>
+                            </div>
+                            <br />
+                            <button id="manualSignIn" class="button is-link has-text-weight-medium is-medium is-centered">
+                            Sign In with Username and Password
+                            </button>
+                        </form>
+                        <br />
+              <br />
+              <p >
+                <a 
+                  onclick="signIn()"
+                >
+                  <img style="border:0" src="https://cdn.glitch.com/53a7a634-945e-4d08-a68d-eed09de32a3e%2Fbtn_google_signin_light_pressed_web%402x.png?v=1627430901319" alt="Google sign in" width="250" height="100">
+
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+
+  <!--   Includes firebase core and all secondary SDKs. No need for other firebase CDN scripts. -->
+  <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase.js"></script>
+
+  <!--   Authenticates firebase client with your firebase instance -->
+  <script src="js/firebase.js"></script>
+
+  <!--  INCLUDE ALL APPLICATION SCRIPTS HERE-->
+  <script src="js/signIn.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <script src="css/writeNotes.js"></script>
+  
+</html>
