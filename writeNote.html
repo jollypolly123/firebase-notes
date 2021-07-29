@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fire Notes</title>
+
+    <link rel="icon" href="https://cdn.glitch.com/53a7a634-945e-4d08-a68d-eed09de32a3e%2F2857c915-3201-442d-98a5-fd1d7b77e708.image.png?v=1627431950215">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css"
+    />
+    <link rel="stylesheet" href="css/writeNote.css" />
+  </head>
+  <body>
+        <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@0.2.3/dist/bubbly-bg.js"></script>
+    <script>bubbly({
+    colorStart: "#4c004c",
+    colorStop: "#1a001a",
+    bubbleFunc: () => `hsla(0, 100%, 50%, ${Math.random() * 0.25})`}); </script> 
+    
+    <section class="hero is-fullheight">
+      <div class="hero-body">
+        <div class="container has-text-centered">
+          <div class="columns is-8 is-variable ">
+            <!-- WELCOME HERO -->
+            <div class="column is-two-thirds has-text-left">
+              <br />
+              <br />
+              <br />
+              <h1 class="title is-1"><p style="color:white;"id="userIdforHeading"></h1>
+              <h1 class="title is-3">
+<!--                 “The most beautiful things are those that madness prompts and
+                reason writes." -->
+                <!--<p style="color:white;">ORGANIZE YOUR LIFE BETTER &gt;:(-->
+              </h1>
+              <h1 class="subtitle is-5">
+<!--                 —Andre Gide -->
+                <!--<p style="color:white;">—ME-->
+                <br>
+              </h1>
+              <a href="/viewNotes.html"
+                ><button
+                  class="button is-link has-text-weight-medium is-medium is-centered"
+                >
+                  Click Here To View Notes
+                </button></a
+              >
+              <br />
+              <br />
+              <button class="button is-medium is-info is-outlined" onclick="logout()">Log Out</button>
+            </div>
+
+            <!-- NOTE FORM -->
+            <div class="column is-one-third has-text-left">
+              <div class="field">
+                <label class="label"><p style="color:white;">Title</label>
+                <div class="control">
+                  <input class="input is-medium" type="text" id="noteTitle" />
+                </div>
+              </div>
+              <div class="field">
+                <label class="label"><p style="color:white;">Labels</label>
+                <div class="control">
+                  <input class="input is-medium" type="text" id="noteLabels" />
+                </div>
+                <p class="help" style="color:white">Separate each label with a comma</p>
+              </div>
+              <div class="field">
+                <label class="label"style="color:white">Note</label>
+                <div class="control">
+                  <textarea class="textarea is-medium" id="noteText"></textarea>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label" style="color:white">Image</label>
+                <div class="control">
+                  <input class="input is-medium" type="text" id="noteImage" />
+                </div>
+                <p class="help"style="color:white">Paste just the URL/link to the image OR THIS DOESN'T WORK OBVIOUSLY ':T seriously please just paste the URL to the image.</p>
+              </div>
+              <div class="field">
+                <label class="checkbox" style="color:white">
+                  <input type="checkbox" id="notePublic">
+                  Make note public
+                </label>
+                <p class="help"style="color:white">Public notes will be viewable in the "Community" section.</p>
+              </div>
+              <div class="control">
+                <button
+                  class="button is-link is-fullwidth has-text-weight-medium is-medium"
+                  onclick="handleNoteSubmit()"
+                >
+                  Create Note
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--     Includes firebase core and all secondary SDKs. No need for other firebase CDN scripts. -->
+    <script src="https://www.gstatic.com/firebasejs/8.8.0/firebase.js"></script>
+
+    <!--   Authenticates firebase client with your firebase instance -->
+    <script src="js/firebase.js"></script>
+
+    <!--  INCLUDE ALL APPLICATION SCRIPTS HERE-->
+    <script src="js/writeNote.js"></script>
+    <script src="js/viewNotes.js"></script>
+
+  </body>
+</html>
